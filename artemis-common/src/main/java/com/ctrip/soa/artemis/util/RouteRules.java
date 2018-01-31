@@ -84,7 +84,7 @@ public class RouteRules {
         }
         if (!StringValues.isNullOrWhitespace(groupKey)) {
             for (String key : groupKey2Instance.keySet()) {
-                if (key.startsWith(groupKey)) {
+                if (key.startsWith(groupKey + "/")) {
                     Instance currentInstance = groupKey2Instance.get(key);
                     instances.put(currentInstance.getInstanceId(), currentInstance);
                 }

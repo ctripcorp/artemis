@@ -46,7 +46,7 @@ public final class NodeManager {
             .getBooleanProperty("artemis.service.cluster.node.status.discovery.force-down." + NetworkInterfaceManager.INSTANCE.localhostIP(), false);
 
     private TypedDynamicProperty<Integer> _initSyncIntervalProperty = ArtemisConfig.properties()
-            .getIntProperty("artemis.service.cluster.node.init.sync-interval", 30, 1000, 600 * 1000);
+            .getIntProperty("artemis.service.cluster.node.init.sync-interval", 1000, 50, 600 * 1000);
 
     private TypedDynamicProperty<Boolean> _allowRegistryFromOtherZoneProperty = ArtemisConfig.properties()
             .getBooleanProperty("artemis.service.registry.allow-from-other-zone", false);
@@ -98,7 +98,7 @@ public final class NodeManager {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
                     if (ServiceNodeUtil.isUp(_nodeStatus))
                         return;
 
